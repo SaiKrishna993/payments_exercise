@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  resources :loans, defaults: {format: :json}
+  constraints format: :json do
+    resources :loans, only: [:index, :show] do
+      resources :payments, only: [:index, :create]
+    end
+
+    resources :payments, only: [:show]
+  end
 end
